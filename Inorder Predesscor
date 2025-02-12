@@ -1,0 +1,112 @@
+import java.util.*;
+import java.io.*;
+
+
+
+class Node{
+    int val;
+    Node left,right;
+    Node(){
+        
+    }
+    Node(int val){
+        this.val=val;
+        left=right=null;
+}
+    
+}
+class BT{
+    public static List<Integer> list=new ArrayList<>();
+    
+    public static Node insert(int [] arr){
+        
+    if(arr.length==0)
+       return new Node();
+    
+           Node root= new Node(arr[0]);
+           Queue<Node>q=new LinkedList<>();
+           q.add(root);
+           int i=1;
+           while(!q.isEmpty()){
+          Node curr=q.poll();
+           if(i<arr.length && arr[i]!=-1){
+               curr.left=new Node(arr[i]);
+               q.add(curr.left);
+               
+               
+           }
+           i++;
+           if(i<arr.length && arr[i]!=-1){
+               curr.right= new Node(arr[i]);
+               q.add(curr.right);
+           }
+             i++;
+           }
+           
+        return root;
+        
+    }
+    public void inorder(Node root){
+        if(root!=null){
+            inorder(root.left);
+           list.add(root.val);
+            inorder(root.right);
+        }
+    }
+    public static void preorder(Node root){
+        if(root!=null){
+            System.out.println(root.val);
+            preorder(root.left);
+            preorder(root.right);
+        }}
+        
+    public static Integer findInorderPredecessor(int key) {
+        int index = list.indexOf(key);
+        if (index > 0) {
+            return list.get(index - 1); // 
+        } else {
+            return null;
+        }
+    }
+        
+        
+        
+}
+
+class Main{
+public static void main(String [] args){
+    int [] arr={1,2,5,3,4,7};
+   
+    BT b= new BT();
+   Node root= b.insert(arr);
+    b.inorder(root);
+    b.preorder(root);
+    int k=7;
+    Integer predecessor = BT.findInorderPredecessor(k);
+
+        // Output the result
+        if (predecessor != null) {
+            System.out.println("Inorder predecessor of " + k + " is: " + predecessor);
+        } else {
+            System.out.println("No inorder predecessor found for " + k);
+        }b.findInorderPredecessor(k);
+
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
